@@ -1,0 +1,51 @@
+# Arquivos e diretórios a serem ignorados pelo Docker
+
+# Target directory (build artifacts)
+target/
+!target/*.jar
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Scripts
+*.bat
+*.sh
+
+# Documentation
+README.md
+docs/
+
+# Uploads directory (será criado no container)
+uploads/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Maven Wrapper (usando Maven instalado no container)
+.mvn/
+mvnw
+mvnw.cmd

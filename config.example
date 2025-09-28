@@ -1,0 +1,23 @@
+# =====================================================
+# VozSocial MVP - Exemplo de Configuração
+# =====================================================
+
+# Google AI API Key (obtenha em: https://ai.google.dev/)
+GOOGLE_AI_API_KEY=your-api-key-here
+
+# Configurações de Storage
+AUDIO_STORAGE_PATH=./uploads/audio
+
+# Configurações do Banco de Dados
+MYSQL_ROOT_PASSWORD=rootpassword
+MYSQL_DATABASE=vozsocial
+MYSQL_USER=vozsocial
+MYSQL_PASSWORD=vozsocial123
+
+# Configurações da Aplicação
+SPRING_PROFILES_ACTIVE=docker
+SERVER_PORT=8080
+
+# Configurações de Debug (opcional)
+DEBUG_MODE=false
+LOG_LEVEL=INFO

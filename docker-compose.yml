@@ -1,0 +1,61 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: vozsocial-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: vozsocial
+      MYSQL_USER: vozsocial
+      MYSQL_PASSWORD: vozsocial123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - vozsocial-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  redis:
+    image: redis:7-alpine
+    container_name: vozsocial-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - vozsocial-network
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+  app:
+    build: .
+    container_name: vozsocial-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vozsocial?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: vozsocial
+      SPRING_DATASOURCE_PASSWORD: vozsocial123
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-your-api-key-here}
+      AUDIO_STORAGE_PATH: /app/uploads/audio
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - vozsocial-network
+    volumes:
+      - audio_storage:/app/uploads/audio
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  audio_storage:
+    driver: local
+
+networks:
+  vozsocial-network:
+    driver: bridge
