@@ -39,11 +39,6 @@ server:
     context-path: /api
 
 # Configurações da API do Google AI
-google:
-  ai:
-    api:
-      key: ${GOOGLE_AI_API_KEY:AIzaSyBvYb5ylgHOlpyvTXSWmSaV2i6L6O4U-zU}
-      base-url: https://generativelanguage.googleapis.com/v1beta
 
 # Configurações de storage de arquivos
 storage:
